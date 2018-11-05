@@ -13,7 +13,6 @@ class Connector extends \elFinderConnector {
 
     /** @var Response */
     protected $response;
-
     /**
      * @return Response
      */

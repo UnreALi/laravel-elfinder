@@ -73,6 +73,7 @@ class ElfinderController extends Controller
 
     public function showConnector()
     {
+
         $roots = $this->app->config->get('elfinder.roots', []);
         if (empty($roots)) {
             $dirs = (array) $this->app['config']->get('elfinder.dir', []);
@@ -102,7 +103,6 @@ class ElfinderController extends Controller
                 }
             }
         }
-
         if (app()->bound('session.store')) {
             $sessionStore = app('session.store');
             $session = new LaravelSession($sessionStore);
@@ -114,14 +114,39 @@ class ElfinderController extends Controller
         foreach ($roots as $key => $root) {
             $roots[$key] = array_merge($rootOptions, $root);
         }
-
+/*
         $opts = $this->app->config->get('elfinder.options', array());
         $opts = array_merge($opts, ['roots' => $roots, 'session' => $session]);
+*/
 
+        $opts = array(
+            'locale' => 'en',
+            'roots'  => array(
+                array(
+                    'driver' => 'LocalFileSystem', // driver for accessing file system (REQUIRED)
+                    'path' => public_path($dir), // path to files (REQUIRED)
+                    'URL' => url($dir), // URL to files (REQUIRED)
+                    'alias' => 'Files',
+                    'accessControl' => $this->app->config->get('elfinder.access') // filter callback (OPTIONAL)
+                ),
+                array(
+                    'driver' => 'MySQL',
+                    'host'   => 'localhost',
+                    'user'   => 'root',
+                    'pass'   => '',
+                    'socket' => '',
+                    'db'     => 'elfinder',
+                    'files_table'   => 'elfinder_file',
+                    'path'   => 1,
+                    'accessControl' => $this->app->config->get('elfinder.access') // filter callback (OPTIONAL)
+                )
+            )
+        );
         // run elFinder
         $connector = new Connector(new \elFinder($opts));
         $connector->run();
         return $connector->getResponse();
+
     }
 
     protected function getViewVars()
