@@ -114,11 +114,11 @@ class ElfinderController extends Controller
         foreach ($roots as $key => $root) {
             $roots[$key] = array_merge($rootOptions, $root);
         }
-/*
+
         $opts = $this->app->config->get('elfinder.options', array());
         $opts = array_merge($opts, ['roots' => $roots, 'session' => $session]);
-*/
 
+/*
         $opts = array(
             'locale' => 'en',
             'roots'  => array(
@@ -142,6 +142,7 @@ class ElfinderController extends Controller
                 )
             )
         );
+*/
         // run elFinder
         $connector = new Connector(new \elFinder($opts));
         $connector->run();
