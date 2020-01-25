@@ -56,7 +56,7 @@ class ElfinderServiceProvider extends ServiceProvider {
         {
             $router->get('/',  ['as' => 'elfinder.index', 'uses' =>'ElfinderController@showIndex']);
             $router->any('connector', ['as' => 'elfinder.connector', 'uses' => 'ElfinderController@showConnector']);
-            $router->get('popup/{input_id}', ['as' => 'elfinder.popup', 'uses' => 'ElfinderController@showPopup']);
+            $router->get('popup/{input_id}/{lang_code}', ['as' => 'elfinder.popup', 'uses' => 'ElfinderController@showPopup']);
             $router->get('filepicker/{input_id}', ['as' => 'elfinder.filepicker', 'uses' => 'ElfinderController@showFilePicker']);
             $router->get('tinymce', ['as' => 'elfinder.tinymce', 'uses' => 'ElfinderController@showTinyMCE']);
             $router->get('tinymce4', ['as' => 'elfinder.tinymce4', 'uses' => 'ElfinderController@showTinyMCE4']);

@@ -28,6 +28,10 @@ class ElfinderController extends Controller
     public function showIndex()
     {
         return $this->app['view']
+            ->make('elfinder')
+            ->with($this->getViewVars());
+
+        return $this->app['view']
             ->make($this->package . '::elfinder')
             ->with($this->getViewVars());
     }
@@ -53,12 +57,13 @@ class ElfinderController extends Controller
             ->with($this->getViewVars());
     }
 
-    public function showPopup($input_id)
+    public function showPopup($input_id,$lang_code)
     {
         return $this->app['view']
             ->make($this->package . '::standalonepopup')
             ->with($this->getViewVars())
-            ->with(compact('input_id'));
+            ->with(compact('input_id'))
+            ->with(compact('lang_code'));
     }
 
     public function showFilePicker($input_id)
